@@ -1,25 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import Input from "./components/UI/Input/Input";
 
 function App() {
+    const [state,setstate] = useState('')
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <div className='wrapper'>
+        <div className='form-wrapper'>
+            <div className='form-title'>Свяжитесь с нами</div>
+            <form className='form-contaner'>
+                <Input className='input' type='text' placeholder='Имя и Фамилия'/>
+                <Input className='input' type='email' placeholder='Адрес почты'/>
+                <Input className='input' type='tel' placeholder='Номер телефона'/>
+                <Input className="input" type='date'/>
+                <textarea className='input' value={state} onChange={(e)=>setstate(e.target.value)} placeholder='Введите сообещние...'/>
+                <button className='form-send'>Отправить</button>
+            </form>
+        </div>
+   </div>
   );
 }
 
