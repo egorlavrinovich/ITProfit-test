@@ -60,6 +60,7 @@ input,textarea{
   justify-content: center;
 }
 .text-field_floating .text-field__input {
+  position: relative;
   width: 90%;
   line-height: 2.5rem;
   font-size: large;
@@ -94,11 +95,16 @@ input,textarea{
   opacity: .85;
   transform: scale(.85) translateY(-.15rem) translateX(.15rem);
 }
-#root > div > div > form > div:nth-child(4) > input{
-  ::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
-  ::-webkit-clear-button {
-    margin-right:75px;
-  }
+#root > div > div > form > div:nth-child(4) > input::-webkit-datetime-edit-fields-wrapper{
+  position: absolute;
+  top: 0.3rem;
+  z-index: 100;
+
+}
+#root > div > div > form > div:nth-child(4) > input::-webkit-calendar-picker-indicator{
+  position: relative;
+  width: 100%;
+  z-index: 0;
+  height: 3vh;
+  opacity: 0;
 }
