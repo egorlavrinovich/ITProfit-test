@@ -1,4 +1,5 @@
 import React, {FC, FocusEventHandler} from 'react';
+import Error from "../Error/Error";
 
 interface ITextArea{
     placeholder?:string;
@@ -6,15 +7,16 @@ interface ITextArea{
     onChange?:React.ChangeEventHandler | undefined;
     name?:string;
     onBlur?:React.EventHandler<any>;
-    className?:string;
-    Name?:string;
+    Filter?:boolean;
+    Blur?:any;
 }
 
-const TextArea:FC<ITextArea> = () => {
+const TextArea:FC<ITextArea> = ({onBlur,name,placeholder,value,onChange,Blur,Filter}) => {
     return (
         <div className="text-field text-field_floating">
-            <textarea maxLength={300} rows={6} cols={80} className='text-field__textarea' name='text-field__textarea'/>
+            <textarea value={value} name={name} onBlur={onBlur} onChange={onChange} maxLength={300} rows={6} cols={80} className='text-field__textarea' placeholder={placeholder}/>
             <label className="text-field__label__textarea" htmlFor='textarea'>Введите сообщение</label>
+            <Error Filter={Filter} Blur={Blur}/>
         </div>
     );
 };

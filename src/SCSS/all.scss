@@ -1,4 +1,6 @@
-@import './Input/input';
-@import './FormSend/SendForm';
-@import './FormTitle/FormTitle';
-@import './TextArea/textarea';
+@import 'FeedbackForm/FormSize/FormSize';
+@import 'FeedbackForm/Input/input';
+@import 'FeedbackForm/FormSend/SendForm';
+@import 'FeedbackForm/FormTitle/FormTitle';
+@import 'FeedbackForm/TextArea/textarea';
+@import 'FeedbackForm/Error/Error';
