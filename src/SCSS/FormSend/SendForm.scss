@@ -1,0 +1,17 @@
+.form-send{
+  width:90%;
+  display: flex;
+  justify-content: center;
+  border: 2px solid pink ;
+  padding: .8rem 0;
+  cursor: pointer;
+  transition: 0.3s ease;
+  border-radius: 2px;
+  font-size: large;
+  background: none;
+  color: inherit;
+  &:hover{
+    color: white;
+    background: rgba(255, 192, 203, 0.73);
+  }
+}

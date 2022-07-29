@@ -1,4 +1,4 @@
-input,textarea{
+input{
   box-sizing: border-box;
   border: none;
   line-height: 3vh;
@@ -11,63 +11,19 @@ input,textarea{
   }
   color: gray;
 }
-.form-title{
-  display: flex;
-  padding: 1.4vh 0;
-  font-size: 1.4rem;
-}
-.input-data{
-  display: none;
-}
-.label-data{
-  width: 100%;
-  background-color: orange;
-}
-.form-send{
-  width:85%;
-  display: flex;
-  justify-content: center;
-  border: 2px solid pink ;
-  padding: 0.8rem 0;
-  cursor: pointer;
-  transition: 0.3s ease;
-  border-radius: 2px;
-  font-size: large;
-  background: none;
-  color: inherit;
-  &:hover{
-    color: white;
-    background: rgba(255, 192, 203, 0.73);
-  }
-}
-@media (max-width: 450px) {
-  .form-title{
-    font-size: 1.2rem;
-  }
-}
-.message{
-  line-height: 10vh;
-}
-::placeholder {
-  font-size: 1.05em;
-  font-family: "Times New Roman";
-}
-
 .text-field_floating {
   position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
 }
-.text-field_floating .text-field__input {
+.text-field_floating .text-field__input  {
   position: relative;
   width: 90%;
   line-height: 2.5rem;
   font-size: large;
   padding-left:1rem ;
   color: #ea8a9a;
-  font-family: "Times New Roman";
-
 }
 .text-field_floating .text-field__label {
   position: absolute;
@@ -95,13 +51,13 @@ input,textarea{
   opacity: .85;
   transform: scale(.85) translateY(-.15rem) translateX(.15rem);
 }
-#root > div > div > form > div:nth-child(4) > input::-webkit-datetime-edit-fields-wrapper{
+input[type='date']::-webkit-datetime-edit-fields-wrapper{
   position: absolute;
   top: 0.3rem;
   z-index: 100;
 
 }
-#root > div > div > form > div:nth-child(4) > input::-webkit-calendar-picker-indicator{
+input[type='date']::-webkit-calendar-picker-indicator{
   position: relative;
   width: 100%;
   z-index: 0;

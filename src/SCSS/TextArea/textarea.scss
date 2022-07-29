@@ -1,0 +1,29 @@
+textarea{
+  box-sizing: border-box;
+  border: none;
+  border-radius: 5px;
+  width: 90%;
+  background-color: rgba(255, 255, 255, 0.47);
+  outline: none;
+  color: #ea8a9a;
+  overflow: auto;
+}
+.text-field__textarea  {
+  position: relative;
+  width: 90%;
+  line-height: 1rem;
+  font-size: large;
+  padding-top: 1.2rem;
+  padding-left:1rem ;
+  color: #ea8a9a;
+  &:focus{
+    border: 1px solid pink;
+  }
+}
+.text-field__label__textarea{
+  position: absolute;
+  background-color: linear-gradient(to top left, powderblue, pink);
+  padding-left: 2.2vw;
+  width: 90%;
+  pointer-events: none;
+}
