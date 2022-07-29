@@ -52,3 +52,53 @@ input,textarea{
   font-size: 1.05em;
   font-family: "Times New Roman";
 }
+
+.text-field_floating {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.text-field_floating .text-field__input {
+  width: 90%;
+  line-height: 2.5rem;
+  font-size: large;
+  padding-left:1rem ;
+  color: #ea8a9a;
+  font-family: "Times New Roman";
+
+}
+.text-field_floating .text-field__label {
+  position: absolute;
+  top: -1.2vh;
+  left: 1vw;
+  height: 100%;
+  padding: 1rem .75rem;
+  pointer-events: none;
+  border: 1px solid transparent;
+  transform-origin: 0 0;
+  transition: opacity .15s ease-in-out, transform .15s ease-in-out;
+}
+.text-field_floating .text-field__input::-moz-placeholder {
+  color: transparent;
+}
+.text-field_floating .text-field__input::placeholder {
+  color: transparent;
+}
+.text-field_floating .text-field__input:focus,
+.text-field_floating .text-field__input:not(:placeholder-shown) {
+  padding-top: 8px;
+}
+.text-field_floating .text-field__input:focus~.text-field__label,
+.text-field_floating .text-field__input:not(:placeholder-shown)~.text-field__label {
+  opacity: .85;
+  transform: scale(.85) translateY(-.15rem) translateX(.15rem);
+}
+#root > div > div > form > div:nth-child(4) > input{
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  ::-webkit-clear-button {
+    margin-right:75px;
+  }
+}
