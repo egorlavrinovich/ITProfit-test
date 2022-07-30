@@ -1,11 +1,13 @@
 import {useEffect, useState} from 'react'
 
-export function UseCheckInput(value:string,type:string,length=2){
+export function UseCheckInput(value:string,type:string,minlength=2,maxlength=30){
     const [error,seterror] = useState<boolean>(true)
 
     useEffect(()=>{
-        function Countlength(str:string,length:number){
-            (str.length<length||str.length>15)?seterror(true):seterror(false)
+        function Countlength(str:string,minlength:number,maxlength:number){
+            const array = str.split(' ');
+            const result = array.map((item,index,arr)=>(item.length>minlength&&item.length<maxlength&&arr.length===2&&item!=''&&!/[а-яё]/i.test(item))?seterror(false):seterror(true))
+            console.log(result)
         }
 
         function CheckEmail(str:string){
@@ -21,7 +23,7 @@ export function UseCheckInput(value:string,type:string,length=2){
             (firstpass!=secoondpass)?seterror(true):seterror(false)
         }
         switch (type){
-            case 'length':Countlength(value, length)
+            case 'length':Countlength(value, minlength,maxlength)
                 break
             case 'email':CheckEmail(value)
                 break
