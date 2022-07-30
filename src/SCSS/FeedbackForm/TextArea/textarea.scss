@@ -4,7 +4,10 @@ textarea{
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.47);
   outline: none;
-  overflow: auto;
+  resize: none;
+  font-family: "Times New Roman";
+  font-size: small;
+  overflow: hidden;
 }
 .text-field__textarea  {
   position: relative;
@@ -20,9 +23,9 @@ textarea{
 }
 .text-field__label__textarea{
   position: absolute;
-  background-color: linear-gradient(to top left, powderblue, pink);
-  padding-left: 2rem;
-  width: 90%;
+  background-color: rgba(250, 250, 250, 0);
+  left:1.7rem;
+  width: 75%;
   pointer-events: none;
 }
 @media (max-width: 450px) {

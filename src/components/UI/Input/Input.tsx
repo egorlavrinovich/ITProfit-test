@@ -14,7 +14,7 @@ interface IInput{
     Blur?:any;
 }
 
-const Input:FC<IInput> = ({onBlur,type,name,placeholder,value,onChange,className,Name,Filter,Blur}) => {
+const Input:FC<IInput> = ({onBlur,type,name,placeholder,value,onChange,className,Name,Filter,Blur,}) => {
     return (
         <div className="text-field text-field_floating">
         <input className={className} onBlur={onBlur} value={value} type={type} placeholder={placeholder} onChange={onChange} name={name}/>

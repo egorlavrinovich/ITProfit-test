@@ -51,11 +51,13 @@ input{
   opacity: .85;
   transform: scale(.85) translateY(-.15rem) translateX(.15rem);
 }
+input[type='date']{
+  height: 3rem;
+}
 input[type='date']::-webkit-datetime-edit-fields-wrapper{
   position: absolute;
-  top: 0.3rem;
+  top: 0.6rem;
   z-index: 100;
-
 }
 input[type='date']::-webkit-calendar-picker-indicator{
   position: relative;

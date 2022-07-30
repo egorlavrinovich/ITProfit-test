@@ -4,10 +4,13 @@ export function UseCheckInput(value:string,type:string,minlength=2,maxlength=30)
     const [error,seterror] = useState<boolean>(true)
 
     useEffect(()=>{
-        function Countlength(str:string,minlength:number,maxlength:number){
-            const array = str.split(' ');
-            const result = array.map((item,index,arr)=>(item.length>minlength&&item.length<maxlength&&arr.length===2&&item!=''&&!/[а-яё]/i.test(item))?seterror(false):seterror(true))
-            console.log(result)
+        function CheckName(str:string,minlength:number,maxlength:number){
+            const CheckNameArray = str.split(' ');
+            CheckNameArray.map((item,index,arr)=>(
+                item.length>=minlength&&
+                item.length<=maxlength&&arr.length===2&&
+                item!==''&&!/[а-яё]/i.test(item))?
+                seterror(false):seterror(true))
         }
 
         function CheckEmail(str:string){
@@ -15,21 +18,27 @@ export function UseCheckInput(value:string,type:string,minlength=2,maxlength=30)
             !(findsymbols.test(str))?seterror(true):seterror(false)
         }
 
-        function CheckPass(str:string){
-            const findSymbols = /^[A-Za-z]\w{7,14}$/;
-            !findSymbols.test(str)?seterror(true):seterror(false)
+        function CheckPhone(str:string){
+            const CheckPhoneArr = str.split('');
+            const result =  CheckPhoneArr.filter(item=>item!='+');
+            (/^7*$/.test(result[0])&&result.length===11)?seterror(false):seterror(true)
         }
-        function CheckPasses(firstpass:string,secoondpass:string){
-            (firstpass!=secoondpass)?seterror(true):seterror(false)
+        function CheckDate(str:any) {
+            (str==='')?seterror(true):seterror(false)
+        }
+        function CheckMessage(str:string){
+            (str.length<10||str.length>300)?seterror(true):seterror(false)
         }
         switch (type){
-            case 'length':Countlength(value, minlength,maxlength)
+            case 'checkname':CheckName(value, minlength,maxlength)
                 break
-            case 'email':CheckEmail(value)
+            case 'checkemail':CheckEmail(value)
                 break
-            case 'pass': CheckPass(value)
+            case 'checkphone': CheckPhone(value)
                 break
-            default:CheckPasses(value,type)
+            case 'checkdate': CheckDate(value)
+                break
+            case 'checkmessage':CheckMessage(value)
                 break
         }
     },[value])
