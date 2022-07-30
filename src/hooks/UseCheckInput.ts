@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 
 export function UseCheckInput(value:string,type:string,minlength=2,maxlength=30){
-    const [error,seterror] = useState<boolean>(true)
+    const [error,seterror] = useState<boolean>(false)
 
     useEffect(()=>{
         function CheckName(str:string,minlength:number,maxlength:number){

@@ -23,7 +23,7 @@ function App() {
     },[NameFilter.error,EmailChecker.error,PhoneNumberChecker.error,DateChecker.error,MessageChecker.error])
     function CheckFieldsInput(e: React.MouseEvent<HTMLButtonElement>){
         e.preventDefault();
-        [Initials,Email,PhoneNumber,Date,UserMessage].map(item=>item.str===''&&item.OnBlur())
+        [Initials,Email,PhoneNumber,Date,UserMessage].map(item=>item.str===''&&item.OnBlur(true))
     }
   return (
    <div className='wrapper'>

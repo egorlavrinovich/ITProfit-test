@@ -6,8 +6,8 @@ export function UseChangeInput() {
     function ChangeState(st:React.ChangeEvent<HTMLInputElement>){
         setstr(st.target.value)
     }
-    function OnBlur(){
-        setblur(true)
+    function OnBlur(type:boolean){
+        setblur(type)
     }
     return {str,ChangeState,blur,OnBlur}
 }
