@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/ITProfit-test/static/css/main.5d56014d.css",
-    "main.js": "/ITProfit-test/static/js/main.de23a671.js",
+    "main.js": "/ITProfit-test/static/js/main.e0723750.js",
     "index.html": "/ITProfit-test/index.html",
     "main.5d56014d.css.map": "/ITProfit-test/static/css/main.5d56014d.css.map",
-    "main.de23a671.js.map": "/ITProfit-test/static/js/main.de23a671.js.map"
+    "main.e0723750.js.map": "/ITProfit-test/static/js/main.e0723750.js.map"
   },
   "entrypoints": [
     "static/css/main.5d56014d.css",
-    "static/js/main.de23a671.js"
+    "static/js/main.e0723750.js"
   ]
 }
