@@ -14,10 +14,26 @@ interface IInput{
     Blur?:any;
 }
 
-const Input:FC<IInput> = ({onBlur,type,name,placeholder,value,onChange,className,Name,Filter,Blur,}) => {
+const Input:FC<IInput> =
+    ({  onBlur,
+         type,
+         name,
+         placeholder,
+         value,onChange,
+         className,
+         Name,
+         Filter,
+         Blur,}) => {
     return (
         <div className="text-field text-field_floating">
-        <input className={className} onClick={()=>onBlur(true)} onBlur={()=>onBlur(false)} value={value} type={type} placeholder={placeholder} onChange={onChange} name={name}/>
+        <input className={className}
+               onClick={()=>onBlur(true)}
+               onBlur={()=>onBlur(false)}
+               value={value}
+               type={type}
+               placeholder={placeholder}
+               onChange={onChange}
+               name={name}/>
             <label className="text-field__label" htmlFor='input'>{Name}</label>
             <Error Filter={Filter} Blur={Blur} Name={Name}/>
         </div>

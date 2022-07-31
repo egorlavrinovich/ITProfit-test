@@ -21,7 +21,8 @@ export function UseCheckInput(value:string,type:string,minlength=2,maxlength=30)
         function CheckPhone(str:string){
             const CheckPhoneArr = str.split('');
             const result =  CheckPhoneArr.filter(item=>item!='+');
-            (/^7*$/.test(result[0])&&result.length===11)?seterror(false):seterror(true)
+            const CheckSymbols = result.map(item=>Number.isInteger(+item)).filter(item=>!item);
+            (/^7*$/.test(result[0])&&!CheckSymbols.length&&result.length===11)?seterror(false):seterror(true)
         }
         function CheckDate(str:any) {
             (str==='')?seterror(true):seterror(false)
