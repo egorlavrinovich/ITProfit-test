@@ -16,5 +16,5 @@ export async function SendDataFields (data:ISendDataFields){
         if (response.ok){
             return 'sucsess'
         }
-        else return `Error:${response.status}`
+        else throw new SyntaxError(`Ошибка отправки: ${response.status}`)
 }

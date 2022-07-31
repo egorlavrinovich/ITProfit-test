@@ -9,5 +9,5 @@ export function UseChangeInput() {
     function OnBlur(type:boolean){
         setblur(type)
     }
-    return {str,ChangeState,blur,OnBlur}
+    return {str,ChangeState,blur,OnBlur,setstr}
 }

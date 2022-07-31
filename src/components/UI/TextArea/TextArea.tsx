@@ -6,7 +6,7 @@ interface ITextArea{
     value?:string|any;
     onChange?:React.ChangeEventHandler | undefined;
     name?:string;
-    onBlur?:React.EventHandler<any>;
+    onBlur?:any;
     Filter?:boolean;
     Blur?:any;
 }
@@ -14,7 +14,7 @@ interface ITextArea{
 const TextArea:FC<ITextArea> = ({onBlur,name,placeholder,value,onChange,Blur,Filter}) => {
     return (
         <div className="text-field text-field_floating">
-            <textarea value={value} name={name} onBlur={onBlur} onChange={onChange} maxLength={301} rows={11} className='text-field__textarea' placeholder={placeholder}/>
+            <textarea value={value} name={name} onClick={()=>onBlur(true)} onBlur={()=>onBlur(false)} onChange={onChange} maxLength={301} rows={11} className='text-field__textarea' placeholder={placeholder}/>
             <label className="text-field__label__textarea" htmlFor='textarea'>Введите сообщение</label>
             <Error Filter={Filter} Blur={Blur}/>
         </div>

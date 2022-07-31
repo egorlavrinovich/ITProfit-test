@@ -3,7 +3,7 @@ import Input from "./components/UI/Input/Input";
 import TextArea from "./components/UI/TextArea/TextArea";
 import {UseChangeInput} from "./hooks/UseChangeInput";
 import {UseCheckInput} from "./hooks/UseCheckInput";
-import {URL} from "./enum/Enum";
+import {URLS} from "./enum/Enum";
 import {SendDataFields} from './API/FetchFields'
 import {Fetch} from "./hooks/UseFetching";
 function App() {
@@ -19,33 +19,32 @@ function App() {
     const DateChecker = UseCheckInput(Date.str,'checkdate')
     const MessageChecker = UseCheckInput(UserMessage.str,'checkmessage')
     const [Data,SetData] = useState<string[]>([])
-    const [Error,SetError] = useState<any>()
+    const DataFields = [Initials,Email,PhoneNumber,Date,UserMessage]
 
     useEffect(()=>{
         if(!NameFilter.error&&!EmailChecker.error&&!PhoneNumberChecker.error&&!DateChecker.error&&!MessageChecker.error){
             setdisabled(true)
-
         }
         else setdisabled(false)
     },[NameFilter.error,EmailChecker.error,PhoneNumberChecker.error,DateChecker.error,MessageChecker.error])
 
-    async function SendData (){
-        try {
-            const result = await SendDataFields({method:'POST',url:'https://jsonplaceholder.typicode.com/post',body:[Data]})
-            console.log(result)
-        }
-        catch (e:any){
-            console.log(e.message)
-        }
-    }
-    function CheckFieldsInput(e: React.MouseEvent<HTMLButtonElement>){
+    const {fetching, Load, Error, Sucsess} = Fetch(
+        async ()=> await SendDataFields({method:'POST',url:URLS.URL,body:[Data]})
+    )
+    async function CheckFieldsInput(e: React.MouseEvent<HTMLButtonElement>){
         e.preventDefault();
-        const CheckFields = [Initials,Email,PhoneNumber,Date,UserMessage].map(item=>item.str===''&&item.OnBlur(true))
-        if(!CheckFields.includes(undefined)&&disabled){
-            SetData([Initials.str,Email.str,PhoneNumber.str,Date.str,UserMessage.str]);
-            SendData()
+        const CheckFields = DataFields.map(item=>item.str===''&&item.OnBlur(true))
+        if(!CheckFields.includes(undefined)&&disabled&&!Load){
+            SetData(DataFields.map(item=>item.str));
+            await fetching();
         }
     }
+    useEffect(()=>{
+        if(disabled){
+            DataFields.map(item=>item.setstr(''))
+        }
+    },[Sucsess])
+
   return (
    <div className='wrapper'>
         <div className='form-wrapper'>
@@ -57,6 +56,7 @@ function App() {
                 <Input value={Date.str} onChange={Date.ChangeState} onBlur={Date.OnBlur} Blur={Date.blur} Filter={DateChecker.error} Name='Выберете дату' className="text-field__input" type='date'/>
                 <TextArea value={UserMessage.str} onChange={UserMessage.ChangeState} onBlur={UserMessage.OnBlur} Blur={UserMessage.blur} Filter={MessageChecker.error}/>
                 <button className='form-send' onClick={CheckFieldsInput}>Отправить</button>
+                {<>{Error && <div className='error'>{Error}</div> || Sucsess&&<div className='Sucsess'>{Sucsess}</div>}</>}
             </form>
         </div>
    </div>
