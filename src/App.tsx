@@ -3,8 +3,11 @@ import Input from "./components/UI/Input/Input";
 import TextArea from "./components/UI/TextArea/TextArea";
 import {UseChangeInput} from "./hooks/UseChangeInput";
 import {UseCheckInput} from "./hooks/UseCheckInput";
+import {URL} from "./enum/Enum";
+import {SendDataFields} from './API/FetchFields'
+import {Fetch} from "./hooks/UseFetching";
 function App() {
-    const [disabled,setdisabled] = useState<boolean>(true) // делаем кнопку регистрации disabled or not
+    const [disabled,setdisabled] = useState<boolean>(false) // делаем кнопку регистрации disabled or not
     const Initials = UseChangeInput()
     const Email = UseChangeInput()
     const PhoneNumber = UseChangeInput()
@@ -15,15 +18,33 @@ function App() {
     const PhoneNumberChecker = UseCheckInput(PhoneNumber.str,'checkphone')
     const DateChecker = UseCheckInput(Date.str,'checkdate')
     const MessageChecker = UseCheckInput(UserMessage.str,'checkmessage')
+    const [Data,SetData] = useState<string[]>([])
+    const [Error,SetError] = useState<any>()
 
     useEffect(()=>{
-        if(!NameFilter.error&&!EmailChecker.error&&!PhoneNumberChecker.error&&DateChecker.error&&!MessageChecker.error){
-            setdisabled(false)
+        if(!NameFilter.error&&!EmailChecker.error&&!PhoneNumberChecker.error&&!DateChecker.error&&!MessageChecker.error){
+            setdisabled(true)
+
         }
+        else setdisabled(false)
     },[NameFilter.error,EmailChecker.error,PhoneNumberChecker.error,DateChecker.error,MessageChecker.error])
+
+    async function SendData (){
+        try {
+            const result = await SendDataFields({method:'POST',url:'https://jsonplaceholder.typicode.com/post',body:[Data]})
+            console.log(result)
+        }
+        catch (e:any){
+            console.log(e.message)
+        }
+    }
     function CheckFieldsInput(e: React.MouseEvent<HTMLButtonElement>){
         e.preventDefault();
-        [Initials,Email,PhoneNumber,Date,UserMessage].map(item=>item.str===''&&item.OnBlur(true))
+        const CheckFields = [Initials,Email,PhoneNumber,Date,UserMessage].map(item=>item.str===''&&item.OnBlur(true))
+        if(!CheckFields.includes(undefined)&&disabled){
+            SetData([Initials.str,Email.str,PhoneNumber.str,Date.str,UserMessage.str]);
+            SendData()
+        }
     }
   return (
    <div className='wrapper'>
