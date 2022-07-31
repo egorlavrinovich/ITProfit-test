@@ -41,7 +41,10 @@ function App() {
     }
     useEffect(()=>{
         if(disabled){
-            DataFields.map(item=>item.setstr(''))
+            DataFields.map(item=> {
+                item.setstr('');
+                item.OnBlur(false)
+            })
         }
     },[Sucsess])
 
