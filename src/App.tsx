@@ -3,11 +3,11 @@ import Input from "./components/UI/Input/Input";
 import TextArea from "./components/UI/TextArea/TextArea";
 import {UseChangeInput} from "./hooks/UseChangeInput";
 import {UseCheckInput} from "./hooks/UseCheckInput";
-import {URLS} from "./enum/Enum";
+import {URLS} from "./env/Env";
 import {SendDataFields} from './API/FetchFields'
 import {Fetch} from "./hooks/UseFetching";
 function App() {
-    const [disabled,setdisabled] = useState<boolean>(false) // делаем кнопку регистрации disabled or not
+    const [disabled,setdisabled] = useState<boolean>(false)
     const Initials = UseChangeInput()
     const Email = UseChangeInput()
     const PhoneNumber = UseChangeInput()
@@ -20,22 +20,21 @@ function App() {
     const MessageChecker = UseCheckInput(UserMessage.str,'checkmessage')
     const [Data,SetData] = useState<string[]>([])
     const DataFields = [Initials,Email,PhoneNumber,Date,UserMessage]
-    const FunctionCheckers = [NameFilter,EmailChecker,PhoneNumberChecker,DateChecker,MessageChecker]
 
     useEffect(()=>{
-        if(FunctionCheckers.map(item=>!item.error)){
+        if(!NameFilter.error&&!EmailChecker.error&&!PhoneNumberChecker.error&&!DateChecker.error&&!MessageChecker.error){
             setdisabled(true)
         }
         else setdisabled(false)
-    },[FunctionCheckers.map(item=>item.error)])
+    },[NameFilter.error,EmailChecker.error,PhoneNumberChecker.error,DateChecker.error,MessageChecker.error])
 
     const {fetching, Load, Error, Sucsess} = Fetch(
         async ()=> await SendDataFields({method:'POST',url:URLS.URL,body:[Data]})
     )
     async function CheckFieldsInput(e: React.MouseEvent<HTMLButtonElement>){
         e.preventDefault();
-        const CheckFields = DataFields.map(item=>item.OnBlur(true))
-        if(!CheckFields.includes(undefined)&&disabled&&!Load){
+        DataFields.map(item=>item.OnBlur(true))
+        if(disabled&&!Load){
             SetData(DataFields.map(item=>item.str));
             await fetching();
         }
@@ -96,17 +95,9 @@ function App() {
                     onBlur={UserMessage.OnBlur}
                     Blur={UserMessage.blur}
                     Filter={MessageChecker.error}/>
-                <button
-                    className='form-send'
-                    onClick={CheckFieldsInput}>
-                    Отправить
-                </button>
+                <button className='form-send' onClick={CheckFieldsInput}>Отправить</button>
                 {<>
-                    {Error &&
-                        <div className='error'>{Error}</div>
-                        ||
-                        Sucsess&&
-                        <div className='Sucsess'>{Sucsess}</div>}</>}
+                    {Error&&<div className='error'>{Error}</div>||Sucsess&&<div className='Sucsess'>{Sucsess}</div>}</>}
             </form>
         </div>
    </div>
