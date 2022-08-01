@@ -4,7 +4,7 @@ interface ISendDataFields{
     body:any;
 }
 
-export async function SendDataFields (data:ISendDataFields){
+export async function sendDataFields (data:ISendDataFields){
     const headers ={
         'Content-Type':'application/json'
     }

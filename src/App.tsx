@@ -1,47 +1,48 @@
 import React, {useState,useEffect} from 'react';
 import Input from "./components/UI/Input/Input";
 import TextArea from "./components/UI/TextArea/TextArea";
-import {UseChangeInput} from "./hooks/UseChangeInput";
-import {UseCheckInput} from "./hooks/UseCheckInput";
-import {URLS} from "./env/Env";
-import {SendDataFields} from './API/FetchFields'
-import {Fetch} from "./hooks/UseFetching";
+import {useChangeInput} from "./hooks/useChangeInput";
+import {useCheckInput} from "./hooks/useCheckInput";
+import {URLS} from "./.env/env";
+import {sendDataFields} from './API/FetchFields'
+// @ts-ignore
+import {useFetch} from "./hooks/useFetching";
 function App() {
     const [disabled,setdisabled] = useState<boolean>(false)
-    const Initials = UseChangeInput()
-    const Email = UseChangeInput()
-    const PhoneNumber = UseChangeInput()
-    const Date = UseChangeInput()
-    const UserMessage = UseChangeInput()
-    const NameFilter = UseCheckInput(Initials.str,'checkname',3,30)
-    const EmailChecker = UseCheckInput(Email.str,'checkemail')
-    const PhoneNumberChecker = UseCheckInput(PhoneNumber.str,'checkphone')
-    const DateChecker = UseCheckInput(Date.str,'checkdate')
-    const MessageChecker = UseCheckInput(UserMessage.str,'checkmessage')
-    const [Data,SetData] = useState<string[]>([])
-    const DataFields = [Initials,Email,PhoneNumber,Date,UserMessage]
+    const initials = useChangeInput()
+    const email = useChangeInput()
+    const phoneNumber = useChangeInput()
+    const date = useChangeInput()
+    const UserMessage = useChangeInput()
+    const NameFilter = useCheckInput(initials.str,'checkname',3,30)
+    const emailChecker = useCheckInput(email.str,'checkemail')
+    const phoneNumberChecker = useCheckInput(phoneNumber.str,'checkphone')
+    const dateChecker = useCheckInput(date.str,'checkdate')
+    const messageChecker = useCheckInput(UserMessage.str,'checkmessage')
+    const [data,setData] = useState<string[]>([])
+    const dataFields = [initials,email,phoneNumber,date,UserMessage]
 
     useEffect(()=>{
-        if(!NameFilter.error&&!EmailChecker.error&&!PhoneNumberChecker.error&&!DateChecker.error&&!MessageChecker.error){
+        if(!NameFilter.error&&!emailChecker.error&&!phoneNumberChecker.error&&!dateChecker.error&&!messageChecker.error){
             setdisabled(true)
         }
         else setdisabled(false)
-    },[NameFilter.error,EmailChecker.error,PhoneNumberChecker.error,DateChecker.error,MessageChecker.error])
+    },[NameFilter.error,emailChecker.error,phoneNumberChecker.error,dateChecker.error,messageChecker.error])
 
-    const {fetching, Load, Error, Sucsess} = Fetch(
-        async ()=> await SendDataFields({method:'POST',url:URLS.URL,body:[Data]})
+    const {fetching, Load, Error, Sucsess} = useFetch(
+        async ()=> await sendDataFields({method:'POST',url:URLS.URL,body:[data]})
     )
     async function CheckFieldsInput(e: React.MouseEvent<HTMLButtonElement>){
         e.preventDefault();
-        DataFields.map(item=>item.OnBlur(true))
+        dataFields.map(item=>item.OnBlur(true))
         if(disabled&&!Load){
-            SetData(DataFields.map(item=>item.str));
+            setData(dataFields.map(item=>item.str));
             await fetching();
         }
     }
     useEffect(()=>{
         if(disabled){
-            DataFields.map(item=> {
+            dataFields.map(item=> {
                 item.setstr('');
                 item.OnBlur(false)
             })
@@ -54,41 +55,41 @@ function App() {
             <div className='form-title'>Свяжитесь с нами</div>
             <form className='form-contaner' noValidate>
                 <Input
-                    value={Initials.str.toUpperCase()}
-                    onChange={Initials.ChangeState}
-                    onBlur={Initials.OnBlur}
-                    Blur={Initials.blur}
+                    value={initials.str.toUpperCase()}
+                    onChange={initials.ChangeState}
+                    onBlur={initials.OnBlur}
+                    Blur={initials.blur}
                     Filter={NameFilter.error}
                     Name='Имя и Фамилия'
                     className='text-field__input'
                     type='text'
                     placeholder='Имя и Фамилия'/>
                 <Input
-                    value={Email.str}
-                    onChange={Email.ChangeState}
-                    onBlur={Email.OnBlur}
-                    Blur={Email.blur}
-                    Filter={EmailChecker.error}
+                    value={email.str}
+                    onChange={email.ChangeState}
+                    onBlur={email.OnBlur}
+                    Blur={email.blur}
+                    Filter={emailChecker.error}
                     Name='Адрес почты'
                     className='text-field__input'
                     type='email'
                     placeholder='Адрес почты' />
                 <Input
-                    value={PhoneNumber.str}
-                    onChange={PhoneNumber.ChangeState}
-                    onBlur={PhoneNumber.OnBlur}
-                    Blur={PhoneNumber.blur}
-                    Filter={PhoneNumberChecker.error}
+                    value={phoneNumber.str}
+                    onChange={phoneNumber.ChangeState}
+                    onBlur={phoneNumber.OnBlur}
+                    Blur={phoneNumber.blur}
+                    Filter={phoneNumberChecker.error}
                     Name='Номер телефона'
                     className='text-field__input'
                     type='tel'
                     placeholder='Номер телефона'/>
                 <Input
-                    value={Date.str}
-                    onChange={Date.ChangeState}
-                    onBlur={Date.OnBlur}
-                    Blur={Date.blur}
-                    Filter={DateChecker.error}
+                    value={date.str}
+                    onChange={date.ChangeState}
+                    onBlur={date.OnBlur}
+                    Blur={date.blur}
+                    Filter={dateChecker.error}
                     Name='Выберете дату'
                     className="text-field__input"
                     type='date'/>
@@ -97,7 +98,7 @@ function App() {
                     onChange={UserMessage.ChangeState}
                     onBlur={UserMessage.OnBlur}
                     Blur={UserMessage.blur}
-                    Filter={MessageChecker.error}/>
+                    Filter={messageChecker.error}/>
                 <button className='form-send' onClick={CheckFieldsInput}>Отправить</button>
                 {<>
                     {Error&&<div className='error'>{Error}</div>||Sucsess&&<div className='Sucsess'>{Sucsess}</div>}</>}

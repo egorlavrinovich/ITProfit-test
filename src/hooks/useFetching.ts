@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const Fetch = (request:any) => {
+export const useFetch = (request:any) => {
     const [Load, SetLoad] = useState(false);
     const [Error, SetError] = useState('');
     const [Sucsess,SetSucsess] = useState('')

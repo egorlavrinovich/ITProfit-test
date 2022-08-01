@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 
-export function UseCheckInput(value:string,type:string,minlength=2,maxlength=30){
+export function useCheckInput(value:string,type:string,minlength=2,maxlength=30){
     const [error,seterror] = useState<boolean>(false)
 
     useEffect(()=>{
