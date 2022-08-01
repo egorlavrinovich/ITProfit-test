@@ -7,8 +7,8 @@ interface ITextArea{
     onChange?:React.ChangeEventHandler | undefined;
     name?:string;
     onBlur?:any;
-    Filter?:boolean;
-    Blur?:any;
+    isFilter?:boolean;
+    isBlur?:any;
 }
 
 const TextArea:FC<ITextArea> =
@@ -17,8 +17,8 @@ const TextArea:FC<ITextArea> =
          placeholder,
          value,
          onChange,
-         Blur,
-         Filter}) => {
+         isBlur,
+         isFilter}) => {
     return (
         <div className="text-field text-field_floating">
             <textarea value={value}
@@ -31,7 +31,7 @@ const TextArea:FC<ITextArea> =
                       className='text-field__textarea'
                       placeholder={placeholder}/>
             <label className="text-field__label__textarea" htmlFor='textarea'>Введите сообщение</label>
-            <Error Filter={Filter} Blur={Blur}/>
+            <>{isBlur&&isFilter&&<Error Name={name}/>}</>
         </div>
     );
 };

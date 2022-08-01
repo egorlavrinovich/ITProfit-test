@@ -10,8 +10,8 @@ interface IInput{
     onBlur?:any;
     className?:string;
     Name?:string;
-    Filter?:boolean;
-    Blur?:any;
+    isFilter?:boolean;
+    isBlur?:any;
 }
 
 const Input:FC<IInput> =
@@ -22,8 +22,8 @@ const Input:FC<IInput> =
          value,onChange,
          className,
          Name,
-         Filter,
-         Blur,}) => {
+         isFilter,
+         isBlur,}) => {
     return (
         <div className="text-field text-field_floating">
         <input className={className}
@@ -35,7 +35,7 @@ const Input:FC<IInput> =
                onChange={onChange}
                name={name}/>
             <label className="text-field__label" htmlFor='input'>{Name}</label>
-            <Error Filter={Filter} Blur={Blur} Name={Name}/>
+            <>{isBlur&&isFilter&&<Error Name={Name}/>}</>
         </div>
     );
 };
