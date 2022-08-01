@@ -1,24 +1,24 @@
 import { useState } from "react";
 
 export const useFetch = (request:any) => {
-    const [Load, SetLoad] = useState(false);
-    const [Error, SetError] = useState('');
-    const [Sucsess,SetSucsess] = useState('')
+    const [load, setLoad] = useState(false);
+    const [error, setError] = useState('');
+    const [sucsess,setSucsess] = useState('')
     const fetching = async () => {
         try {
-            SetLoad(true);
+            setLoad(true);
             await request();
-            SetError('')
-            SetSucsess('Данные отправлены')
+            setError('')
+            setSucsess('Данные отправлены')
         } catch (error:any) {
-            SetError(error.message);
-            SetSucsess('')
+            setError(error.message);
+            setSucsess('')
         } finally {
-            SetLoad(false);
+            setLoad(false);
             setTimeout(()=>{
-                SetSucsess('')
+                setSucsess('')
             },3000)
         }
     };
-    return {fetching, Load, Error,Sucsess};
+    return {fetching, load, error,sucsess};
 };

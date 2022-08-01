@@ -1,4 +1,4 @@
-import React, {FC, FocusEventHandler} from 'react';
+import React, {FC} from 'react';
 import Error from "../Error/Error";
 
 interface ITextArea{
@@ -31,7 +31,7 @@ const TextArea:FC<ITextArea> =
                       className='text-field__textarea'
                       placeholder={placeholder}/>
             <label className="text-field__label__textarea" htmlFor='textarea'>Введите сообщение</label>
-            <>{isBlur&&isFilter&&<Error Name={name}/>}</>
+            <>{isBlur&&isFilter&&<Error/>}</>
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import React, {FC, FocusEventHandler} from 'react';
+import React, {FC} from 'react';
 import Error from "../Error/Error";
 
 interface IInput{
@@ -35,7 +35,7 @@ const Input:FC<IInput> =
                onChange={onChange}
                name={name}/>
             <label className="text-field__label" htmlFor='input'>{Name}</label>
-            <>{isBlur&&isFilter&&<Error Name={Name}/>}</>
+            <>{isBlur&&isFilter&&<Error/>}</>
         </div>
     );
 };
