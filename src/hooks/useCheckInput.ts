@@ -19,10 +19,9 @@ export function useCheckInput(value:string,type:string,minlength=2,maxlength=30)
         }
 
         function CheckPhone(str:string){
-            const CheckPhoneArr = str.split('');
-            const result =  CheckPhoneArr.filter(item=>item!='+');
-            const CheckSymbols = result.map(item=>Number.isInteger(+item)).filter(item=>!item);
-            (/^7*$/.test(result[0])&&!CheckSymbols.length&&result.length===11)?seterror(false):seterror(true)
+            const checkPhoneArr = str.split('');
+            const checkSymbols = checkPhoneArr.map(item=>/^[0-9()+]*$/.test(item)).filter(item=>!item);
+            (/^7*$/.test(checkPhoneArr[1])&&!checkSymbols.length&&checkPhoneArr.length===14)?seterror(false):seterror(true)
         }
         function CheckDate(str:any) {
             (str==='')?seterror(true):seterror(false)
@@ -45,3 +44,5 @@ export function useCheckInput(value:string,type:string,minlength=2,maxlength=30)
     },[value])
     return {isError}
 }
+
+console.log(/^[0-9]*$/.test('+7(444)'))

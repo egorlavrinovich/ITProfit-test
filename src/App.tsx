@@ -5,7 +5,6 @@ import {useChangeInput} from "./hooks/useChangeInput";
 import {useCheckInput} from "./hooks/useCheckInput";
 import {URLS} from "./.env/env";
 import {sendDataFields} from './api/FetchFields'
-// @ts-ignore
 import {useFetch} from "./hooks/useFetching";
 function App() {
     const [isDisabled,setDisabled] = useState<boolean>(false)
@@ -32,6 +31,17 @@ function App() {
     const {fetching, Load, Error, Sucsess} = useFetch(
         async ()=> await sendDataFields({method:'POST',url:URLS.URL,body:[data]})
     )
+
+    function setNumber(e:React.ChangeEvent<HTMLInputElement>) {
+        const symbol = e.target.value;
+        if(phoneNumber.str.length<symbol.length){
+            if(!phoneNumber.str) phoneNumber.setStr('')
+            if(['7','8','9'].includes(symbol)&&phoneNumber.str.length<1) phoneNumber.setStr(`+7(${e.target.value}`)
+            if(phoneNumber.str.length>2) phoneNumber.setStr(symbol)
+            if(phoneNumber.str.length===5) phoneNumber.setStr(`${symbol})`)}
+        else phoneNumber.setStr(symbol)
+    }      
+
     async function CheckFieldsInput(e: React.MouseEvent<HTMLButtonElement>){
         e.preventDefault();
         dataFields.map(item=>item.OnBlur(true))
@@ -43,7 +53,7 @@ function App() {
     useEffect(()=>{
         if(isDisabled&&Sucsess){
             dataFields.map(item=> {
-                item.setstr('');
+                item.setStr('');
                 item.OnBlur(false)
             })
         }
@@ -76,7 +86,7 @@ function App() {
                     placeholder='Адрес почты' />
                 <Input
                     value={phoneNumber.str}
-                    onChange={phoneNumber.ChangeState}
+                    onChange={setNumber}
                     onBlur={phoneNumber.OnBlur}
                     isBlur={phoneNumber.isBlur}
                     isFilter={phoneNumberChecker.isError}
